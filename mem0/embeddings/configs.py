@@ -1,3 +1,4 @@
+# Modified by RecallFlow: register the local Ark provider and embedding dimension configuration.
 from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
@@ -15,6 +16,7 @@ class EmbedderConfig(BaseModel):
         provider = values.data.get("provider")
         if provider in [
             "openai",
+            "ark",
             "ollama",
             "huggingface",
             "azure_openai",

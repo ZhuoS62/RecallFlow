@@ -339,3 +339,13 @@ The `/auth/*`, `/api-keys`, `/requests`, and `/entities` routes are new to the s
     See how services call the REST endpoints as part of an automation pipeline.
   </Card>
 </CardGroup>
+
+
+<!-- Modified by RecallFlow: document the local Ark deployment override. -->
+
+## Local Ark deployment
+
+The local Docker Compose override uses `http://localhost:3001` for the dashboard and `http://localhost:8890` for the API.
+Set `OPENAI_BASE_URL` and `OPENAI_API_KEY` for the Ark LLM, and `MEM0_EMBEDDER_PROVIDER=ark` for its multimodal embedding endpoint.
+Set `MEM0_EMBEDDING_DIMS=1024` consistently for both the embedder and pgvector collection.
+The Ark adapter currently embeds text only. Configure credentials through the local terminal; never commit the `.env` file.

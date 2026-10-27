@@ -1,3 +1,4 @@
+# Modified by RecallFlow: register the local Ark provider and embedding dimension configuration.
 import importlib
 import inspect
 from typing import Dict, Optional, Union
@@ -152,6 +153,7 @@ class LlmFactory:
 class EmbedderFactory:
     provider_to_class = {
         "openai": "mem0.embeddings.openai.OpenAIEmbedding",
+        "ark": "mem0.embeddings.ark.ArkEmbedding",
         "ollama": "mem0.embeddings.ollama.OllamaEmbedding",
         "huggingface": "mem0.embeddings.huggingface.HuggingFaceEmbedding",
         "azure_openai": "mem0.embeddings.azure_openai.AzureOpenAIEmbedding",

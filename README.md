@@ -1,3 +1,13 @@
+# RecallFlow
+
+面向 Agent 的长期记忆服务，基于 [Mem0](https://github.com/mem0ai/mem0) 二次开发，提供对话事实持久化、按实体范围检索及记忆管理接口。
+
+本分支新增 Embedding Provider、配置注册、本地源码镜像与部署脚本；记忆算法和管理界面复用 Mem0。功能、个人改动及验证范围见 [RecallFlow 项目说明](README.recallflow.md)。保留上游 Apache-2.0 许可证与文档。
+
+---
+
+## 上游 Mem0 文档
+
 <p align="center">
   <a href="https://github.com/mem0ai/mem0">
     <img src="docs/images/banner-sm.png" width="800px" alt="Mem0 - The Memory Layer for Personalized AI">

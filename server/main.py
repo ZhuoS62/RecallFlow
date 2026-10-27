@@ -1,3 +1,4 @@
+# Modified by RecallFlow: register the local Ark provider and embedding dimension configuration.
 import asyncio
 import logging
 import os
@@ -60,7 +61,7 @@ SKIPPED_REQUEST_LOG_PATHS = {"/api/health", "/docs", "/redoc", "/openapi.json"}
 SKIPPED_REQUEST_LOG_PREFIXES = ("/requests",)
 
 BUNDLED_LLM_PROVIDERS = ("openai", "anthropic", "gemini")
-BUNDLED_EMBEDDER_PROVIDERS = ("openai", "gemini")
+BUNDLED_EMBEDDER_PROVIDERS = ("openai", "gemini", "ark")
 
 
 def _warn_if_unconfigured() -> None:
@@ -128,13 +129,21 @@ DEFAULT_CONFIG = {
             "user": POSTGRES_USER,
             "password": POSTGRES_PASSWORD,
             "collection_name": POSTGRES_COLLECTION_NAME,
+            "embedding_model_dims": int(os.environ.get("MEM0_EMBEDDING_DIMS", "1536")),
         },
     },
     "llm": {
         "provider": "openai",
         "config": {"api_key": OPENAI_API_KEY, "temperature": 0.2, "model": DEFAULT_LLM_MODEL},
     },
-    "embedder": {"provider": "openai", "config": {"api_key": OPENAI_API_KEY, "model": DEFAULT_EMBEDDER_MODEL}},
+    "embedder": {
+        "provider": os.environ.get("MEM0_EMBEDDER_PROVIDER", "openai"),
+        "config": {
+            "api_key": OPENAI_API_KEY,
+            "model": DEFAULT_EMBEDDER_MODEL,
+            "embedding_dims": int(os.environ.get("MEM0_EMBEDDING_DIMS", "1536")),
+        },
+    },
     "history_db_path": HISTORY_DB_PATH,
 }
 

@@ -1,0 +1,10 @@
+FROM python:3.12-slim
+WORKDIR /app
+COPY pyproject.toml README.md LICENSE /sdk/
+COPY mem0 /sdk/mem0
+COPY server/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir /sdk -r /app/requirements.txt
+COPY server /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+EXPOSE 8000
+CMD ["sh", "-c", "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000"]

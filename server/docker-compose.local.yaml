@@ -1,0 +1,28 @@
+name: mem0-local
+services:
+  mem0:
+    build: !override
+      context: ..
+      dockerfile: server/Dockerfile.local
+    ports: !override
+      - "127.0.0.1:8890:8000"
+    volumes: !override
+      - mem0_history:/app/history
+    command: sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000"
+    restart: unless-stopped
+    environment:
+      - DASHBOARD_URL=http://localhost:3001
+      - MEM0_TELEMETRY=false
+  postgres:
+    ports: !reset []
+    restart: unless-stopped
+  mem0-dashboard:
+    ports: !override
+      - "127.0.0.1:3001:3000"
+    restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8890
+      - API_INTERNAL_URL=http://mem0:8000
+      - NEXT_PUBLIC_INSTANCE_NAME=Mem0 Local
+volumes:
+  mem0_history:
